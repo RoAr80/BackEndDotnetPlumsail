@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackEndDotnetPlumsail", "BackEndDotnetPlumsail\BackEndDotnetPlumsail.csproj", "{DC690BC2-BD3A-4E3A-941B-1DE34C2733EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackEndDotnetPlumsail.Data", "BackEndDotnetPlumsail.Data\BackEndDotnetPlumsail.Data.csproj", "{7E740B12-B27E-421E-B6EF-F3424F598096}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DC690BC2-BD3A-4E3A-941B-1DE34C2733EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC690BC2-BD3A-4E3A-941B-1DE34C2733EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC690BC2-BD3A-4E3A-941B-1DE34C2733EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC690BC2-BD3A-4E3A-941B-1DE34C2733EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E740B12-B27E-421E-B6EF-F3424F598096}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E740B12-B27E-421E-B6EF-F3424F598096}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E740B12-B27E-421E-B6EF-F3424F598096}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E740B12-B27E-421E-B6EF-F3424F598096}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {03E6CC26-B6B6-41D3-843F-9AD3056E2440}
+	EndGlobalSection
+EndGlobal
