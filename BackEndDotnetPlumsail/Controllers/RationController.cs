@@ -2,6 +2,7 @@
 using BackEndDotnetPlumsail.Data.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,11 @@ namespace BackEndDotnetPlumsail.Controllers
     public class RationController : BaseController
     {
         private readonly IRationRepository _rationRepository;
-        public RationController(IRationRepository rationRepository)
+        private IElasticSearchService _elasticsearchService;
+        public RationController(IRationRepository rationRepository, IElasticSearchService elasticsearchService)
         {
             _rationRepository = rationRepository;
+            _elasticsearchService = elasticsearchService;
         }
 
         [HttpGet]
@@ -97,6 +100,28 @@ namespace BackEndDotnetPlumsail.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("GetAppVersionByRationIdElastic")]
+        public async Task<IActionResult> GetAppVersionByRationIdElastic(string id)
+        {
+            try
+            {
+                var fileName = $"Application_{DateTime.Now.ToString("dd.MM.yyyy_hh:mm:sss")}.html";
+                var mimeType = "text/html";
+
+                Response.Clear();
+                Response.Headers.Add("content-disposition", String.Format("inline;filename=\"{0}\"", fileName));
+                Response.ContentType = mimeType;
+                var res = await _elasticsearchService.GetAppVersionByRationId(id);
+
+                return File(res, mimeType);
+            }
+            catch (Exception ex)
+            {
+                return ExceptionResult(ex);
+            }
+        }
+
         [HttpPost]
         [Route("AddRation")]
         public async Task<IActionResult> AddRation([FromBody] Ration ration)
@@ -104,6 +129,21 @@ namespace BackEndDotnetPlumsail.Controllers
             try
             {
                 return Ok(await _rationRepository.AddRation(ration));
+            }
+            catch (Exception ex)
+            {
+                return ExceptionResult(ex);
+            }
+        }
+
+        [HttpPost]
+        [Route("AddRationElastic")]
+        public async Task<IActionResult> AddRationElastic([FromBody] dynamic ration)
+        {
+            try
+            {
+                await _elasticsearchService.InsertRation(ration);
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -126,12 +166,41 @@ namespace BackEndDotnetPlumsail.Controllers
         }
 
         [HttpGet]
+        [Route("SearchRationsElastic")]
+        public async Task<IActionResult> SearchRationsElastic(string query)
+        {
+            try
+            {
+                return Ok(await _elasticsearchService.SearchRations(query));
+            }
+            catch (Exception ex)
+            {
+                return ExceptionResult(ex);
+            }
+        }
+
+
+        [HttpGet]
         [Route("GetRation")]
         public async Task<IActionResult> GetRation(int id)
         {
             try
             {
                 return Ok(await _rationRepository.GetRation(id));
+            }
+            catch (Exception ex)
+            {
+                return ExceptionResult(ex);
+            }
+        }
+
+        [HttpGet]
+        [Route("GetRationElastic")]
+        public async Task<IActionResult> GetRationElastic(string id)
+        {
+            try
+            {
+                return Ok(await _elasticsearchService.GetRation(id));
             }
             catch (Exception ex)
             {

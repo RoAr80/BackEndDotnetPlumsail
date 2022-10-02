@@ -54,6 +54,7 @@ namespace BackEndDotnetPlumsail
             });
 
             services.AddScoped<IRationRepository, RationRepository>();
+            services.AddScoped<IElasticSearchService, ElasticsearchService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
